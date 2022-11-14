@@ -1,0 +1,125 @@
+package machine;
+
+public class MachineContent {
+
+    int waterAmount;
+    int milkAmount;
+    int coffeeAmount;
+    int moneyAmount;
+    int cupsAmount;
+
+    public int getMoneyAmount() {
+        return moneyAmount;
+    }
+
+    public void setMoneyAmount(int moneyAmount) {
+        this.moneyAmount = moneyAmount;
+    }
+
+    public int getCupsAmount() {
+        return cupsAmount;
+    }
+
+    public void setCupsAmount(int cupsAmount) {
+        this.cupsAmount = cupsAmount;
+    }
+
+    public int getWaterAmount() {
+        return waterAmount;
+    }
+
+    public void setWaterAmount(int waterAmount) {
+        this.waterAmount = waterAmount;
+    }
+
+    public int getMilkAmount() {
+        return milkAmount;
+    }
+
+    public void setMilkAmount(int milkAmount) {
+        this.milkAmount = milkAmount;
+    }
+
+    public int getCoffeeAmount() {
+        return coffeeAmount;
+    }
+
+    public void setCoffeeAmount(int coffeeAmount) {
+        this.coffeeAmount = coffeeAmount;
+    }
+
+    public static String checkEspresso(MachineContent machine1) {
+        if (machine1.getCupsAmount() < 1) {
+            return "Sorry, not enough cups!\n";
+        } else if (machine1.getCoffeeAmount() < 16) {
+            return "Sorry, not enough coffee!\n";
+        } else if (machine1.getWaterAmount() < 250) {
+            return "Sorry, not enough not enough water\n";
+        } else {
+            return "canMake";
+        }
+    }
+    public static String checkLatte(MachineContent machine1) {
+        if (machine1.getCupsAmount() < 1) {
+            return "Sorry, not enough cups!\n";
+        } else if (machine1.getCoffeeAmount() < 20) {
+            return "Sorry, not enough coffee!\n";
+        } else if (machine1.getWaterAmount() < 350) {
+            return "Sorry, not enough not enough water\n";
+        } else if (machine1.getMilkAmount() < 75) {
+            return "Sorry, not enough not enough water\n";
+        }else {
+            return "canMake";
+        }
+    }
+
+    public static String checkCappuccino(MachineContent machine1) {
+        if (machine1.getCupsAmount() < 1) {
+            return "Sorry, not enough cups!\n";
+        } else if (machine1.getCoffeeAmount() < 12) {
+            return "Sorry, not enough coffee!\n";
+        } else if (machine1.getWaterAmount() < 200) {
+            return "Sorry, not enough not enough water\n";
+        } else if (machine1.getMilkAmount() < 100) {
+            return "Sorry, not enough not enough milk\n";
+        }else {
+            return "canMake";
+        }
+    }
+
+    public static MachineContent buyEspresso(MachineContent machine1) {
+
+        machine1.setWaterAmount(machine1.getWaterAmount() - 250);
+        machine1.setMilkAmount(machine1.getMilkAmount());
+        machine1.setCoffeeAmount(machine1.getCoffeeAmount() - 16);
+        machine1.setCupsAmount(machine1.getCupsAmount() - 1);
+        machine1.setMoneyAmount(machine1.getMoneyAmount() + 4);
+        return machine1;
+    }
+
+    public static MachineContent buyLatte(MachineContent machine1) {
+
+        machine1.setWaterAmount(machine1.getWaterAmount() - 350);
+        machine1.setMilkAmount(machine1.getMilkAmount() - 75);
+        machine1.setCoffeeAmount(machine1.getCoffeeAmount() - 20);
+        machine1.setCupsAmount(machine1.getCupsAmount() - 1);
+        machine1.setMoneyAmount(machine1.getMoneyAmount() + 7);
+        return machine1;
+    }
+
+    public static MachineContent buyCappuccino(MachineContent machine1) {
+
+        machine1.setWaterAmount(machine1.getWaterAmount() - 200);
+        machine1.setMilkAmount(machine1.getMilkAmount() - 100);
+        machine1.setCoffeeAmount(machine1.getCoffeeAmount() - 12);
+        machine1.setCupsAmount(machine1.getCupsAmount() - 1);
+        machine1.setMoneyAmount(machine1.getMoneyAmount() + 6);
+        return machine1;
+    }
+
+    public static MachineContent takeMoney(MachineContent machine1) {
+        System.out.printf("I gave you $%d", machine1.getMoneyAmount());
+        machine1.setMoneyAmount(0);
+        return machine1;
+    }
+}
