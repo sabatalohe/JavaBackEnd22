@@ -1,0 +1,123 @@
+package machine;
+
+import java.util.Objects;
+import java.util.Scanner;
+
+import static machine.MachineContent.*;
+
+public class CoffeeMachine {
+
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        MachineContent machine1 = initializeMachine();
+
+        outer:
+        while (true) {
+            System.out.println("Write action (buy, fill, take, remaining, exit):");
+            printPrompt();
+            String choice = sc.nextLine();
+            System.out.println();
+
+            switch (choice) {
+                case "buy":
+                    buySomething(machine1, sc);
+                    break;
+                case "fill":
+                    fillMachine(sc, machine1);
+                    break;
+                case "take":
+                    takeMoney(machine1);
+                    break;
+                case "remaining":
+                    printContent(machine1);
+                    break;
+                case "exit":
+                    break outer;
+            }
+            System.out.println();
+        }
+
+    }
+    
+    public static MachineContent initializeMachine() {
+
+        MachineContent machine1 = new MachineContent();
+
+        machine1.setWaterAmount(400);
+        machine1.setMilkAmount(540);
+        machine1.setCoffeeAmount(120);
+        machine1.setCupsAmount(9);
+        machine1.setMoneyAmount(550);
+        return machine1;
+    }
+
+    public static void printContent(MachineContent machine1) {
+        System.out.println("The coffee machine has:");
+        System.out.printf("%d ml of water\n", machine1.getWaterAmount());
+        System.out.printf("%d ml of milk\n", machine1.getMilkAmount());
+        System.out.printf("%d g of coffee beans\n", machine1.getCoffeeAmount());
+        System.out.printf("%d disposable cups\n", machine1.getCupsAmount());
+        System.out.printf("$%d of money\n", machine1.getMoneyAmount());
+    }
+
+    public static MachineContent buySomething(MachineContent machine1, Scanner sc) {
+        System.out.println("What do You want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+        printPrompt();
+        String choice = sc.nextLine();
+        switch (choice) {
+            case "1": {
+                if (Objects.equals(checkEspresso(machine1), "canMake")) {
+                    buyEspresso(machine1);
+                    System.out.println("I have enough resources, making you a coffee!");
+                } else {
+                    System.out.print(checkEspresso(machine1));
+                }
+                break;
+            }
+            case "2": {
+                if (Objects.equals(checkLatte(machine1), "canMake")) {
+                    buyLatte(machine1);
+                    System.out.println("I have enough resources, making you a coffee!");
+                } else {
+                    System.out.print(checkLatte(machine1));
+                }
+                break;
+            }
+            case "3": {
+                if (Objects.equals(checkCappuccino(machine1), "canMake")) {
+                    buyCappuccino(machine1);
+                    System.out.println("I have enough resources, making you a coffee!");
+                } else {
+                    System.out.print(checkCappuccino(machine1));
+                }
+                break;
+            }
+            case "back":
+                break;
+        }
+        return machine1;
+    }
+
+    public static MachineContent fillMachine(Scanner sc, MachineContent machine1) {
+
+        System.out.println("Write how many ml of water you want to add:");
+        printPrompt();
+        machine1.setWaterAmount(sc.nextInt() + machine1.getWaterAmount());
+        System.out.println("Write how many ml of milk you want to add:");
+        printPrompt();
+        machine1.setMilkAmount(sc.nextInt() + machine1.getMilkAmount());
+        System.out.println("Write how many grams of coffee beans you want to add:");
+        printPrompt();
+        machine1.setCoffeeAmount(sc.nextInt() + machine1.getCoffeeAmount());
+        System.out.println("Write how many disposable cups you want to add:");
+        printPrompt();
+        machine1.setCupsAmount(sc.nextInt() + machine1.getCupsAmount());
+        return machine1;
+    }
+
+    public static void printPrompt() {
+        System.out.print("> ");
+    }
+}
